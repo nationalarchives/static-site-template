@@ -1,7 +1,7 @@
 {
   "name": "My site",
   "url": "http://localhost:8080",
-  "cookiesDomain": "localhost",
+  "cookiesDomain": "",
   "headerStrapline": "",
   "includeLogoAdornments": true,
   "404ContactUrl": "https://github.com/nationalarchives/static-site-template/issues/new"
