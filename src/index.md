@@ -8,6 +8,7 @@ date: git Last Modified
 
 ## Useful links
 
+- [Static site template source code](https://github.com/nationalarchives/static-site-template)
 - [The National Archives Engineering Handbook](https://nationalarchives.github.io/engineering-handbook/)
 
 ### Frontend resources
