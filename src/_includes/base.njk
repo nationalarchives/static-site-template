@@ -23,9 +23,9 @@
   {% if description %}
   <meta name="description" content="{{ description }}">
   {% endif %}
-  <meta name="tna.response.generated" content="{{ page.date | iso8601 }}">
   <meta name="tna.app.tna-frontend" content="{{ TNA_FRONTEND_VERSION }}">
   <meta name="tna.settings.theme" content="{{ theme }}">
+  <meta name="tna.page.last-updated" content="{{ page.date | iso8601 }}">
   <meta name="tna.page.accent" content="{{ themeAccent }}">
 {% endblock %}
 
