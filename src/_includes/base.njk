@@ -62,7 +62,7 @@
   {{ tnaHeader({
     logo: {
       strapline: siteSettings.headerStrapline,
-      href: BASE_PATH or "/"
+      href: BASE_PATH
     },
     navigation: []
   }) }}
@@ -75,11 +75,11 @@
     legal: [
       {
         text: "Accessibility",
-        href: "/accessibility/"
+        href: BASE_PATH + "accessibility/"
       },
       {
         text: "Cookies",
-        href: "/cookies/"
+        href: BASE_PATH + "cookies/"
       }
     ],
     classes: "tna-!--margin-top-l"
