@@ -17,6 +17,7 @@ This site has four categories of cookies:
 - [marketing](#cookies-that-are-used-for-marketing-purposes)
 
 {{ tnaWarning({
+  headingLevel: 2,
   body: "JavaScript is not available on your browser. This could be a network issue. Without JavaScript available your cookie preferences cannot be changed.",
   classes: "tna--hide-on-js"
 }) }}

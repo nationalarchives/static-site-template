@@ -62,6 +62,13 @@ module.exports = async function (eleventyConfig) {
     () =>
       packageInfo.packages["node_modules/@nationalarchives/frontend"].version,
   );
+  eleventyConfig.addGlobalData("BASE_PATH", () => {
+    const basePath = process.env.BASE_PATH || "";
+    if (!basePath || basePath === "/") {
+      return "/";
+    }
+    return "/" + basePath.replace(/^\//, "").replace(/\/$/, "") + "/";
+  });
 
   eleventyConfig.addPassthroughCopy({
     "src/assets": "assets",

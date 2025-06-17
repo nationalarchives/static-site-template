@@ -31,23 +31,23 @@ jobs:
       - name: Lint
         run: npm run lint
       - name: Build
-        run: npm run build
+        run: BASE_PATH=${{ github.event.repository.name }} npm run build
       - name: Configure 404
         run: |
           mv ./dist/404/index.html ./dist/404.html
           rmdir ./dist/404
-      # - name: Setup Pages
-      #   uses: actions/configure-pages@v4
-      # - name: Upload artifact
-      #   uses: actions/upload-pages-artifact@v3
-      #   with:
-      #     path: dist
-      # - name: Deploy to GitHub Pages
-      #   id: deployment
-      #   uses: actions/deploy-pages@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
       - name: Archive build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: dist
+          name: static-site
           path: |
             dist
