@@ -123,6 +123,17 @@ module.exports = async function (eleventyConfig) {
     },
   });
 
+  eleventyConfig.addCollection("allPages", function (collectionsApi) {
+    return collectionsApi.getFilteredByGlob(["**/*.md"]).sort(function (a, b) {
+      const depthA = a.inputPath.split("/").length - 1;
+      const depthB = b.inputPath.split("/").length - 1;
+      if (depthA === depthB) {
+        return a.inputPath.localeCompare(b.inputPath); // sort by path - ascending
+      }
+      return depthA - depthB;
+    });
+  });
+
   return {
     markdownTemplateEngine: "njk",
   };

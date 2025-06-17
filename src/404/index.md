@@ -1,6 +1,7 @@
 ---
 title: Page not found
 layout: simple.njk
+eleventyExcludeFromCollections: true
 ---
 
 If you typed the web address, check it is correct.
