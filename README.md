@@ -1,1 +1,7 @@
-# static-site-template
+# TNA Static Site
+
+## Quickstart
+
+```sh
+???
+```

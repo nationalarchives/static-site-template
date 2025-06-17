@@ -1,0 +1,32 @@
+{
+  "name": "static-site-template",
+  "description": "A static site template for The National Archives",
+  "scripts": {
+    "dev": "npx @11ty/eleventy --serve",
+    "build": "npx @11ty/eleventy",
+    "lint:fix": "npx prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nationalarchives/static-site-template.git"
+  },
+  "author": {
+    "name": "Andrew Hosgood",
+    "email": "andrew.hosgood@nationalarchives.gov.uk",
+    "url": "https://andrewhosgood.dev"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nationalarchives/static-site-template/issues"
+  },
+  "homepage": "https://github.com/nationalarchives/static-site-template#readme",
+  "dependencies": {
+    "@nationalarchives/frontend": "^0.20.1"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.1",
+    "esbuild": "^0.25.5",
+    "markdown-it-class": "^1.0.0",
+    "sass": "^1.89.2"
+  }
+}

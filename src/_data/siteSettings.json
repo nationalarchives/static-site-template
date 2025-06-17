@@ -1,0 +1,7 @@
+{
+  "name": "My site",
+  "url": "http://localhost:8080",
+  "cookiesDomain": "localhost",
+  "headerStrapline": "",
+  "includeLogoAdornments": true
+}

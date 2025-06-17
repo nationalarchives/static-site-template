@@ -1,0 +1,94 @@
+{%- extends "nationalarchives/templates/layouts/_generic.njk" -%}
+
+{%- from "nationalarchives/components/cookie-banner/macro.njk" import tnaCookieBanner -%}
+{%- from "nationalarchives/components/footer/macro.njk" import tnaFooter -%}
+{%- from "nationalarchives/components/header/macro.njk" import tnaHeader -%}
+{%- from "nationalarchives/components/skip-link/macro.njk" import tnaSkipLink -%}
+
+{%- set assetPath = "/assets/" -%}
+
+{%- set theme = "system" -%}
+{%- set themeAccent = themeAccent or "blue" -%}
+
+{%- set siteTitle = siteSettings.name + " - The National Archives" -%}
+{%- set pageTitle = title -%}
+{%- if siteSettings.cookiesDomain %}
+  {% set htmlAttributes = {
+    "data-cookiesdomain": siteSettings.cookiesDomain
+  } %}
+{%- endif %}
+
+{% block head %}
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://www.nationalarchives.gov.uk; style-src 'self' https://fonts.googleapis.com https://use.typekit.net https://p.typekit.net https://www.nationalarchives.gov.uk 'sha256-hmf/W5DAwRg/Gu1jng1ypAFrjR6tTn1nZMt0t/kvEfE='; font-src 'self' https://use.typekit.net https://fonts.gstatic.com">
+  {% if description %}
+  <meta name="description" content="{{ description }}">
+  {% endif %}
+  <meta name="tna.response.generated" content="{{ page.date | iso8601 }}">
+  <meta name="tna.app.tna-frontend" content="{{ TNA_FRONTEND_VERSION }}">
+  <meta name="tna.settings.theme" content="{{ theme }}">
+  <meta name="tna.page.accent" content="{{ themeAccent }}">
+{% endblock %}
+
+{% block stylesheets %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/css/main.css" media="screen,print">
+  <link rel="stylesheet" href="/css/fa.css" media="screen,print">
+  <link rel="stylesheet" href="https://use.typekit.net/kaq6qqh.css" media="screen,print">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400..700&family=Roboto+Mono:wght@400..500&display=swap">
+  <link rel="stylesheet" href="/css/ie.css" media="all and (-ms-high-contrast: none), (-ms-high-contrast: active)">
+  <link rel="stylesheet" href="/css/print.css" media="print">
+  {%- if siteSettings.includeLogoAdornments %}
+  <link rel="stylesheet" href="https://www.nationalarchives.gov.uk/enrichment/css/logo-adornments.css" media="screen">
+  {%- endif %}
+  <style>.tna--show-on-js{display: none !important;}</style>
+{% endblock %}
+
+{% block cookies %}
+  {{ tnaCookieBanner({
+    serviceName: siteSettings.name,
+    cookiesUrl: "/cookies/"
+  }) }}
+{% endblock %}
+
+{% block skipLink %}
+  {{ tnaSkipLink({
+    href: "main-content",
+    text: "Skip to main content"
+  }) }}
+{% endblock %}
+
+{% block header %}
+  {{ tnaHeader({
+    logo: {
+      strapline: siteSettings.headerStrapline,
+      href: "/"
+    },
+    navigation: []
+  }) }}
+{% endblock %}
+
+{% block footer %}
+  {{ tnaFooter({
+    themeSelector: true,
+    currentTheme: theme,
+    legal: [
+      {
+        text: "Accessibility",
+        href: "/accessibility/"
+      },
+      {
+        text: "Cookies",
+        href: "/cookies/"
+      }
+    ],
+    classes: "tna-!--margin-top-l"
+  }) }}
+{% endblock %}
+
+{% block bodyEnd %}
+  <script src="/js/main.js"></script>
+  {%- if siteSettings.includeLogoAdornments %}
+  <script type="module" src="https://www.nationalarchives.gov.uk/enrichment/js/logo-adornments.js" defer></script>
+  {%- endif %}
+{% endblock %}
