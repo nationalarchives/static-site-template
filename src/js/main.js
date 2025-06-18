@@ -138,5 +138,5 @@ document.querySelectorAll("details[name]").forEach(($details) => {
 
 const ga4Id = document.documentElement.getAttribute("data-ga4id");
 if (ga4Id) {
-  const analytics = new GA4({ id: ga4Id });
+  new GA4({ id: ga4Id });
 }
