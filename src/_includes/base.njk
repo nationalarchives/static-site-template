@@ -8,7 +8,6 @@
 {%- set assetPath = BASE_PATH + "assets/" -%}
 
 {%- set theme = "system" -%}
-{%- set themeAccent = themeAccent or "blue" -%}
 
 {%- set siteTitle = siteSettings.name + " - The National Archives" -%}
 {%- set pageTitle = title -%}
@@ -24,8 +23,9 @@
   <meta name="description" content="{{ description }}">
   {% endif %}
   <meta name="tna.app.tna-frontend" content="{{ TNA_FRONTEND_VERSION }}">
-  <meta name="tna.settings.theme" content="{{ theme }}">
+  {%- if page.date %}
   <meta name="tna.page.last-updated" content="{{ page.date | iso8601 }}">
+  {%- endif %}
   <meta name="tna.page.accent" content="{{ themeAccent }}">
 {% endblock %}
 
@@ -59,19 +59,42 @@
 {% endblock %}
 
 {% block header %}
+  {% set headerNavigationItems = [] %}
+  {% for pageItem in collections.headerNavigation %}
+    {% set headerNavigationItems = (headerNavigationItems.push({
+      text: pageItem.data.title,
+      href: pageItem.url,
+      selected: page.url.startsWith(pageItem.url)
+    }), headerNavigationItems) %}
+  {% endfor %}
   {{ tnaHeader({
     logo: {
       strapline: siteSettings.headerStrapline,
       href: BASE_PATH
     },
-    navigation: []
+    navigation: headerNavigationItems if headerNavigationItems.length > 0 else null
   }) }}
 {% endblock %}
 
 {% block footer %}
+  {% set footerNavigationItems = [] %}
+  {% for footerGroup, footerGroupItems in collections.footerNavigation %}
+    {% set footerNavigationGroupItems = [] %}
+    {% for footerGroupItem in footerGroupItems %}
+      {% set footerNavigationGroupItems = (footerNavigationGroupItems.push({
+        text: footerGroupItem.data.title,
+        href: footerGroupItem.url
+      }), footerNavigationGroupItems) %}
+    {% endfor %}
+    {% set footerNavigationItems = (footerNavigationItems.push({
+      title: footerGroup,
+      items: footerNavigationGroupItems
+    }), footerNavigationItems) %}
+  {% endfor %}
   {{ tnaFooter({
     themeSelector: true,
     currentTheme: theme,
+    navigation: footerNavigationItems,
     legal: [
       {
         text: "Accessibility",
@@ -80,6 +103,10 @@
       {
         text: "Cookies",
         href: BASE_PATH + "cookies/"
+      },
+      {
+        text: "Sitemap",
+        href: BASE_PATH + "sitemap/"
       }
     ],
     classes: "tna-!--margin-top-l"

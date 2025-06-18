@@ -12,7 +12,6 @@ module.exports = async function (eleventyConfig) {
   eleventyConfig.setDataDirectory("_data");
 
   eleventyConfig.setTemplateFormats("html,md");
-  // eleventyConfig.markdownTemplateEngine = "njk";
 
   eleventyConfig.amendLibrary("md", (mdLib) =>
     mdLib.use(markdownItClass, {
@@ -123,15 +122,75 @@ module.exports = async function (eleventyConfig) {
     },
   });
 
-  eleventyConfig.addCollection("allPages", function (collectionsApi) {
-    return collectionsApi.getFilteredByGlob(["**/*.md"]).sort(function (a, b) {
-      const depthA = a.inputPath.split("/").length - 1;
-      const depthB = b.inputPath.split("/").length - 1;
-      if (depthA === depthB) {
-        return a.inputPath.localeCompare(b.inputPath); // sort by path - ascending
-      }
-      return depthA - depthB;
-    });
+  eleventyConfig.addCollection("sitemapPages", (collectionsApi) => {
+    const allPages = collectionsApi
+      .getFilteredByGlob(["**/*.md"])
+      .toSorted((a, b) => {
+        const urlA = a.url;
+        const urlB = b.url;
+        if (urlA === urlB) {
+          return a.url.localeCompare(b.url);
+        }
+        return urlA - urlB;
+      });
+    const allPagesByUrl = Object.fromEntries(
+      new Map(allPages.map((page) => [page.url, page])),
+    );
+    const allPagesHierarchy = { title: "Home", url: "/", children: [] };
+    allPages
+      .filter((page) => page.url !== "/")
+      .forEach((page) =>
+        page.url
+          .replace(/^\//, "")
+          .replace(/\/$/, "")
+          .split("/")
+          .reduce(
+            (r, urlPart) =>
+              r.children.find((child) => child.urlPart === urlPart) ||
+              r.children.push({
+                title: allPagesByUrl[page.url].data.title,
+                description: allPagesByUrl[page.url].data.description || "",
+                url: page.url,
+                urlPart: urlPart,
+                children: [],
+              }),
+            allPagesHierarchy,
+          ),
+      );
+    return allPagesHierarchy;
+  });
+  eleventyConfig.addCollection("headerNavigation", (collectionsApi) => {
+    return collectionsApi
+      .getFilteredByGlob(["**/*.md"])
+      .filter((page) => page.data.showInHeaderNavigation === true)
+      .sort((a, b) => {
+        const orderA = a.data.headerNavigationOrder || 999;
+        const orderB = b.data.headerNavigationOrder || 999;
+        if (orderA === orderB) {
+          return a.inputPath.localeCompare(b.inputPath);
+        }
+        return orderA - orderB;
+      });
+  });
+  eleventyConfig.addCollection("footerNavigation", (collectionsApi) => {
+    return collectionsApi
+      .getFilteredByGlob(["**/*.md"])
+      .filter((page) => page.data.showInFooterNavigationGroup !== undefined)
+      .sort((a, b) => {
+        const orderA = a.data.footerNavigationOrder || 999;
+        const orderB = b.data.footerNavigationOrder || 999;
+        if (orderA === orderB) {
+          return a.inputPath.localeCompare(b.inputPath);
+        }
+        return orderA - orderB;
+      })
+      .reduce((groups, page) => {
+        if (!groups.hasOwnProperty(page.data.showInFooterNavigationGroup)) {
+          groups[page.data.showInFooterNavigationGroup] = [];
+        }
+        groups[page.data.showInFooterNavigationGroup].push(page);
+        return groups;
+      }, {});
   });
 
   return {

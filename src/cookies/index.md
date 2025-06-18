@@ -1,6 +1,7 @@
 ---
 title: Cookies
 layout: simple.njk
+description: Change you cookie preferences
 date: git Last Modified
 ---
 
