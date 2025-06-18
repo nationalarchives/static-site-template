@@ -3,6 +3,8 @@ import {
   Cookies,
 } from "@nationalarchives/frontend/nationalarchives/all.js";
 
+import { GA4 } from "@nationalarchives/frontend/nationalarchives/analytics.mjs";
+
 initAll();
 
 const cookies = new Cookies();
@@ -133,3 +135,8 @@ document.querySelectorAll("details[name]").forEach(($details) => {
     }
   });
 });
+
+const ga4Id = document.documentElement.getAttribute("data-ga4id");
+if (ga4Id) {
+  const analytics = new GA4({ id: ga4Id });
+}

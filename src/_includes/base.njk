@@ -5,15 +5,16 @@
 {%- from "nationalarchives/components/header/macro.njk" import tnaHeader -%}
 {%- from "nationalarchives/components/skip-link/macro.njk" import tnaSkipLink -%}
 
-{%- set assetPath = BASE_PATH + "assets/" -%}
+{%- set assetPath = BASE_PATH + 'assets/' -%}
 
-{%- set theme = "system" -%}
+{%- set theme = 'system' -%}
 
-{%- set siteTitle = siteSettings.name + " - The National Archives" -%}
+{%- set siteTitle = siteSettings.name + ' - The National Archives' -%}
 {%- set pageTitle = title -%}
 {% set htmlAttributes = {
-  "data-tna-cookies-domain": siteSettings.cookiesDomain or "",
-  "data-tna-cookies-path": BASE_PATH
+  'data-tna-cookies-domain': siteSettings.cookiesDomain or '',
+  'data-tna-cookies-path': BASE_PATH,
+  'data-ga4id':  siteSettings.googleAnalytics4Id or ''
 } %}
 
 {% block head %}
@@ -46,14 +47,14 @@
 {% block cookies %}
   {{ tnaCookieBanner({
     serviceName: siteSettings.name,
-    cookiesUrl: "/cookies/"
+    cookiesUrl: '/cookies/'
   }) }}
 {% endblock %}
 
 {% block skipLink %}
   {{ tnaSkipLink({
-    href: "main-content",
-    text: "Skip to main content"
+    href: 'main-content',
+    text: 'Skip to main content'
   }) }}
 {% endblock %}
 
@@ -96,19 +97,19 @@
     navigation: footerNavigationItems,
     legal: [
       {
-        text: "Accessibility",
-        href: BASE_PATH + "accessibility/"
+        text: 'Accessibility',
+        href: BASE_PATH + 'accessibility/'
       },
       {
-        text: "Cookies",
-        href: BASE_PATH + "cookies/"
+        text: 'Cookies',
+        href: BASE_PATH + 'cookies/'
       },
       {
-        text: "Sitemap",
-        href: BASE_PATH + "sitemap/"
+        text: 'Sitemap',
+        href: BASE_PATH + 'sitemap/'
       }
     ],
-    classes: "tna-!--margin-top-l"
+    classes: 'tna-!--margin-top-l'
   }) }}
 {% endblock %}
 

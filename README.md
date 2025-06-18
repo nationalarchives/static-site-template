@@ -40,6 +40,7 @@ Edit the details in `src/_data/siteSettings.json` to change some basic aspects o
 | `headerStrapline`       | Adds a short strapline to the logo in the header                                         |
 | `includeLogoAdornments` | If `true`, add adornments to the logo in the header for events throughout the year       |
 | `404ContactUrl`         | The URL to use for the "contact us" link in the default 404 error page                   |
+| `googleAnalytics4Id`    | The ID of a Google Analytics 4 property to enable tracking                               |
 
 ### Adding pages
 

@@ -4,5 +4,6 @@
   "cookiesDomain": "",
   "headerStrapline": "",
   "includeLogoAdornments": true,
-  "404ContactUrl": "https://github.com/nationalarchives/static-site-template/issues/new"
+  "404ContactUrl": "https://github.com/nationalarchives/static-site-template/issues/new",
+  "googleAnalytics4Id": ""
 }
