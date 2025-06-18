@@ -13,6 +13,8 @@ npm install
 npm run dev
 ```
 
+View the site at [localhost:8080](http://localhost:8080/)
+
 ## Building your site
 
 You can build your site for deployment with `npm run build` which creates a `dist` directory with the static content in.
