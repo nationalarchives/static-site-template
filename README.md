@@ -86,6 +86,21 @@ The suggested value is `git Last Modified`.
 
 The `themeAccent` can be set to `black`, `pink`, `orange`, `yellow`, `green` or `blue`. These accent colours are listed under ["Accent colours" on the National Archives Design System](https://design-system.nationalarchives.gov.uk/styles/colours/#accent-colours).
 
+### Using TNA Frontend components
+
+You can use any component from TNA Frontend as listed in the [Components section of the National Archives Design System](https://design-system.nationalarchives.gov.uk/components/) directly in a markdown file.
+
+The code should be identical to the examples given in the design system. For instance, to display a [button](https://design-system.nationalarchives.gov.uk/components/button/):
+
+```nunjucks
+{% from "nationalarchives/components/button/macro.njk" import tnaButton %}
+
+{{ tnaButton({
+  text: "Button",
+  href: "#"
+}) }}
+```
+
 ### CSS
 
 There is a file set up to add custom styles in: `src/css/modules/_custom.scss`. Styles added here will be available on all pages.
