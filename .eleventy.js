@@ -5,6 +5,14 @@ const Nunjucks = require("nunjucks");
 const packageInfo = require("./package-lock.json");
 const markdownItClass = require("markdown-it-class");
 
+const basePath = () => {
+  const path = process.env.BASE_PATH || "";
+  if (!path || path === "/") {
+    return "/";
+  }
+  return "/" + path.replace(/^\//, "").replace(/\/$/, "") + "/";
+};
+
 module.exports = async function (eleventyConfig) {
   eleventyConfig.setInputDirectory("src");
   eleventyConfig.setOutputDirectory("dist");
@@ -64,13 +72,7 @@ module.exports = async function (eleventyConfig) {
     () =>
       packageInfo.packages["node_modules/@nationalarchives/frontend"].version,
   );
-  eleventyConfig.addGlobalData("BASE_PATH", () => {
-    const basePath = process.env.BASE_PATH || "";
-    if (!basePath || basePath === "/") {
-      return "/";
-    }
-    return "/" + basePath.replace(/^\//, "").replace(/\/$/, "") + "/";
-  });
+  eleventyConfig.addGlobalData("BASE_PATH", basePath);
 
   eleventyConfig.addPassthroughCopy({
     "src/assets": "assets",
@@ -152,7 +154,7 @@ module.exports = async function (eleventyConfig) {
                   "/"
                 ).replace(/\/\//g, "/");
                 return {
-                  href,
+                  href: basePath() + href.replace(/^\//, ""),
                   text:
                     href === "/"
                       ? "Home"
