@@ -1,9 +1,9 @@
-{%- extends "nationalarchives/templates/layouts/_generic.njk" -%}
+{%- extends 'nationalarchives/templates/layouts/_generic.njk' -%}
 
-{%- from "nationalarchives/components/cookie-banner/macro.njk" import tnaCookieBanner -%}
-{%- from "nationalarchives/components/footer/macro.njk" import tnaFooter -%}
-{%- from "nationalarchives/components/header/macro.njk" import tnaHeader -%}
-{%- from "nationalarchives/components/skip-link/macro.njk" import tnaSkipLink -%}
+{%- from 'nationalarchives/components/cookie-banner/macro.njk' import tnaCookieBanner -%}
+{%- from 'nationalarchives/components/footer/macro.njk' import tnaFooter -%}
+{%- from 'nationalarchives/components/header/macro.njk' import tnaHeader -%}
+{%- from 'nationalarchives/components/skip-link/macro.njk' import tnaSkipLink -%}
 
 {%- set assetPath = BASE_PATH + 'assets/' -%}
 
@@ -47,7 +47,7 @@
 {% block cookies %}
   {{ tnaCookieBanner({
     serviceName: siteSettings.name,
-    cookiesUrl: '/cookies/'
+    cookiesUrl: BASE_PATH + 'cookies/'
   }) }}
 {% endblock %}
 

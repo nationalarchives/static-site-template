@@ -1,5 +1,20 @@
 {%- extends 'base.njk' -%}
 
+{%- from 'nationalarchives/components/breadcrumbs/macro.njk' import tnaBreadcrumbs -%}
+
+{% block beforeContent %}
+  {% if page.url in collections.breadcrumbs and collections.breadcrumbs[page.url].length %}
+  <div class="tna-container">
+    <div class="tna-column tna-column--full">
+      {{ tnaBreadcrumbs({
+        items: collections.breadcrumbs[page.url],
+        classes: 'tna-!--padding-vertical-s'
+      }) }}
+    </div>
+  </div>
+  {% endif %}
+{% endblock %}
+
 {% block content %}
   <div class="tna-section">
     <div class="tna-container">

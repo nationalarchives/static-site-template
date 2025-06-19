@@ -21,7 +21,7 @@ You can build your site for deployment with `npm run build` which creates a `dis
 
 ### Boilerplate content
 
-This repo contains three basic pages to start you off with:
+This repo contains four basic pages to start you off with:
 
 - `src/index.md` - the home page
 - `src/accessibility/index.md` - the accessibility statement
