@@ -22,17 +22,17 @@
   },
   "homepage": "https://github.com/nationalarchives/static-site-template#readme",
   "dependencies": {
-    "@nationalarchives/frontend": "^0.20.1"
+    "@nationalarchives/frontend": "^0.29.1"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.1",
-    "esbuild": "^0.25.5",
+    "esbuild": "^0.27.0",
     "eslint": "^8.57.1",
     "markdown-it-class": "^1.0.0",
     "prettier": "^3.5.3",
     "sass": "^1.89.2",
     "stylelint": "^16.20.0",
-    "stylelint-config-standard-scss": "^15.0.1",
+    "stylelint-config-standard-scss": "^16.0.0",
     "stylelint-order": "^7.0.0",
     "stylelint-selector-bem-pattern": "^4.0.1"
   }
