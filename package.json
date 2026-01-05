@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/nationalarchives/static-site-template#readme",
   "dependencies": {
-    "@nationalarchives/frontend": "^0.29.1"
+    "@nationalarchives/frontend": "^0.30.2"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.1",
