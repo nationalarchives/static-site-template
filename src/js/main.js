@@ -45,7 +45,6 @@ document.querySelectorAll("details[name]").forEach(($details) => {
   });
 });
 
-/* eslint-disable-next-line one-var */
 const ga4Id = document.documentElement.getAttribute("data-ga4id");
 if (ga4Id) {
   /* eslint-disable-next-line no-new */
