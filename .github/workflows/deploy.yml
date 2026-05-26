@@ -29,7 +29,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build
-        run: BASE_PATH=${{ github.event.repository.name }} npm run build
+        run: BASE_PATH=${GITHUB_REPOSITORY_NAME} npm run build
+        env:
+          GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
       - name: Configure 404
         run: |
           mv ./dist/404/index.html ./dist/404.html

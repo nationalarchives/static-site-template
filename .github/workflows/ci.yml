@@ -23,5 +23,7 @@ jobs:
       - name: Lint
         run: npm run lint
       - name: Build
-        run: BASE_PATH=${{ github.event.repository.name }} npm run build
+        run: BASE_PATH=${GITHUB_REPOSITORY_NAME} npm run build
+        env:
+          GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
       
