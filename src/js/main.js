@@ -1,130 +1,39 @@
 import {
-  initAll,
   Cookies,
+  initAll,
 } from "@nationalarchives/frontend/nationalarchives/all.js";
-
 import { GA4 } from "@nationalarchives/frontend/nationalarchives/analytics.mjs";
 
 initAll();
 
-const cookies = new Cookies();
+const cookies = new Cookies(),
+  setTheme = (theme) => {
+    if (theme === "light") {
+      document.documentElement.classList.remove("tna-template--dark-theme");
+      document.documentElement.classList.remove("tna-template--system-theme");
+    } else {
+      document.documentElement.classList.add(`tna-template--${theme}-theme`);
+    }
+  };
 
-const setTheme = (theme) => {
-  if (theme === "light") {
-    document.documentElement.classList.remove("tna-template--dark-theme");
-    document.documentElement.classList.remove("tna-template--system-theme");
-  } else {
-    document.documentElement.classList.add(`tna-template--${theme}-theme`);
-  }
-};
-
-setTheme(cookies.exists("theme") ? cookies.get("theme") : "system");
-
-document
-  .querySelectorAll("[data-setcookiepreference][data-setcookiepreferencevalue]")
-  .forEach((setCookiePreference) => {
-    setCookiePreference.addEventListener("click", () => {
-      if (
-        setCookiePreference.getAttribute("data-setcookiepreferencevalue") ===
-        "true"
-      ) {
-        cookies.acceptPolicy(
-          setCookiePreference.getAttribute("data-setcookiepreference"),
-        );
-      } else {
-        cookies.rejectPolicy(
-          setCookiePreference.getAttribute("data-setcookiepreference"),
-        );
-      }
-      cookies.set("cookie_preferences_set", "true", {
-        maxAge: 60 * 60 * 24 * 365,
-      });
-
-      const setCookiePreferenceParent = setCookiePreference.parentElement;
-      if (setCookiePreferenceParent.classList.contains("tna-button-group")) {
-        if (setCookiePreferenceParent.querySelector(".tna-chip[aria-live]")) {
-          setCookiePreferenceParent
-            .querySelector(".tna-chip[aria-live]")
-            .remove();
-        }
-        const notificationChip = document.createElement("div");
-        notificationChip.classList.add("tna-chip");
-        notificationChip.setAttribute("aria-live", "assertive");
-        notificationChip.innerHTML =
-          '<span class="tna-visually-hidden">Cookie preference</span> saved';
-        setCookiePreferenceParent.appendChild(notificationChip);
-        setTimeout(() => {
-          notificationChip.remove();
-        }, 3000);
-      }
-    });
-  });
-
-const updateCookiePreferenceDisplays = () => {
-  const cookiePreferenceDisplays = document.querySelectorAll(
-    "[data-showcookiepreference][data-showcookiepreferenceonaccepted][data-showcookiepreferenceonrejected]",
-  );
-  cookiePreferenceDisplays.forEach((cookiePreferenceDisplay) => {
-    cookiePreferenceDisplay.textContent = cookies.isPolicyAccepted(
-      cookiePreferenceDisplay.getAttribute("data-showcookiepreference"),
-    )
-      ? cookiePreferenceDisplay.getAttribute(
-          "data-showcookiepreferenceonaccepted",
-        )
-      : cookiePreferenceDisplay.getAttribute(
-          "data-showcookiepreferenceonrejected",
-        );
-  });
-
-  document
-    .querySelectorAll(
-      "[data-setcookiepreference][data-setcookiepreferencevalue]",
-    )
-    .forEach((setCookiePreference) => {
-      if (
-        (cookies.isPolicyAccepted(
-          setCookiePreference.getAttribute("data-setcookiepreference"),
-        ) &&
-          setCookiePreference.getAttribute("data-setcookiepreferencevalue") ===
-            "true") ||
-        (!cookies.isPolicyAccepted(
-          setCookiePreference.getAttribute("data-setcookiepreference"),
-        ) &&
-          setCookiePreference.getAttribute("data-setcookiepreferencevalue") ===
-            "false")
-      ) {
-        setCookiePreference.setAttribute("tabindex", "-1");
-      } else {
-        setCookiePreference.setAttribute("tabindex", "0");
-      }
-    });
-};
-
-updateCookiePreferenceDisplays();
+if (cookies.exists("theme")) {
+  setTheme(cookies.get("theme"));
+} else {
+  setTheme("system");
+}
 
 cookies.on("changePolicy", (data) => {
-  updateCookiePreferenceDisplays();
-  if (Object.prototype.hasOwnProperty.call(data, "settings")) {
+  if (Object.hasOwn(data, "settings")) {
     if (data.settings !== true) {
       cookies.delete("theme");
     }
   }
 });
 
-const hideOnJsBlocks = document.querySelectorAll(".tna--hide-on-js");
-hideOnJsBlocks.forEach((hideOnJsBlock) => {
-  hideOnJsBlock.style.display = "none";
-});
-
-const showOnJsBlocks = document.querySelectorAll(".tna--show-on-js");
-showOnJsBlocks.forEach((hideOnJsBlock) => {
-  hideOnJsBlock.classList.remove("tna--show-on-js");
-});
-
 document.querySelectorAll("details[name]").forEach(($details) => {
-  $details.addEventListener("toggle", (e) => {
+  $details.addEventListener("toggle", (event) => {
     const name = $details.getAttribute("name");
-    if (e.newState == "open") {
+    if (event.newState === "open") {
       document
         .querySelectorAll(`details[name=${name}][open]`)
         .forEach(($openDetails) => {
@@ -136,7 +45,9 @@ document.querySelectorAll("details[name]").forEach(($details) => {
   });
 });
 
+/* eslint-disable-next-line one-var */
 const ga4Id = document.documentElement.getAttribute("data-ga4id");
 if (ga4Id) {
+  /* eslint-disable-next-line no-new */
   new GA4({ id: ga4Id });
 }

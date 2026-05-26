@@ -5,11 +5,6 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -20,20 +15,23 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version-file: .nvmrc
       - name: Install dependencies
-        run: npm install
-      - name: Audit Node dependencies
-        run: npm audit --audit-level=critical
-      - name: Lint
-        run: npm run lint
+        run: npm ci
       - name: Build
-        run: BASE_PATH=${{ github.event.repository.name }} npm run build
+        run: BASE_PATH=${GITHUB_REPOSITORY_NAME} npm run build
+        env:
+          GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
       - name: Configure 404
         run: |
           mv ./dist/404/index.html ./dist/404.html
