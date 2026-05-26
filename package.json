@@ -4,8 +4,8 @@
   "scripts": {
     "dev": "npx @11ty/eleventy --serve",
     "build": "npx @11ty/eleventy",
-    "lint": "prettier --check {src,.eleventy.js,README.md} && stylelint --config node_modules/@nationalarchives/frontend/config/stylelint.config.js 'src/css/**/*.scss' && eslint --config node_modules/@nationalarchives/frontend/config/.eslintrc.js 'src/js/**/*.{js,mjs}'",
-    "lint:fix": "prettier --write {src,.eleventy.js,README.md} && stylelint --config node_modules/@nationalarchives/frontend/config/stylelint.config.js --fix 'src/css/**/*.scss' && eslint --config node_modules/@nationalarchives/frontend/config/.eslintrc.js --fix 'src/js/**/*.{js,mjs}'"
+    "lint": "prettier --check {src,.eleventy.js,README.md} && stylelint --config stylelint.config.mjs 'src/css/**/*.scss' && eslint --config eslint.config.mjs 'src/js/**/*.{js,mjs}'",
+    "lint:fix": "prettier --write {src,.eleventy.js,README.md} && stylelint --config stylelint.config.mjs --fix 'src/css/**/*.scss' && eslint --config eslint.config.mjs --fix 'src/js/**/*.{js,mjs}'"
   },
   "repository": {
     "type": "git",
@@ -22,18 +22,16 @@
   },
   "homepage": "https://github.com/nationalarchives/static-site-template#readme",
   "dependencies": {
-    "@nationalarchives/frontend": "^0.38.0"
+    "@nationalarchives/frontend": "^0.41.0"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.1",
-    "esbuild": "^0.27.0",
-    "eslint": "^8.57.1",
+    "@nationalarchives/eslint-config": "^0.1.4",
+    "@nationalarchives/stylelint-config": "^0.1.1",
+    "esbuild": "^0.28.0",
+    "eslint": "^10.4.0",
     "markdown-it-class": "^1.0.0",
     "prettier": "^3.5.3",
-    "sass": "^1.89.2",
-    "stylelint": "^16.20.0",
-    "stylelint-config-standard-scss": "^16.0.0",
-    "stylelint-order": "^7.0.0",
-    "stylelint-selector-bem-pattern": "^4.0.1"
+    "sass": "^1.89.2"
   }
 }
