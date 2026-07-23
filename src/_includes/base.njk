@@ -12,7 +12,7 @@
 {%- set siteTitle = siteSettings.name + ' - The National Archives' -%}
 {%- set pageTitle = title -%}
 {% set htmlAttributes = {
-  'data-tna-cookies-domain': siteSettings.cookiesDomain or '.nationalarchives.gov.uk',
+  'data-tna-cookies-domain': siteSettings.cookiesDomain or 'nationalarchives.github.io',
   'data-tna-cookies-path': BASE_PATH,
   'data-ga4id':  siteSettings.googleAnalytics4Id or ''
 } %}
