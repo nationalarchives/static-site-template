@@ -1,7 +1,5 @@
-import {
-  Cookies,
-  initAll,
-} from "@nationalarchives/frontend/nationalarchives/all.js";
+import Cookies from "@nationalarchives/cookies";
+import { initAll } from "@nationalarchives/frontend/nationalarchives/all.js";
 import { GA4 } from "@nationalarchives/frontend/nationalarchives/analytics.mjs";
 
 initAll();
@@ -22,27 +20,12 @@ if (cookies.exists("theme")) {
   setTheme("system");
 }
 
-cookies.on("changePolicy", (data) => {
+cookies.on("changePreference", (data) => {
   if (Object.hasOwn(data, "settings")) {
     if (data.settings !== true) {
       cookies.delete("theme");
     }
   }
-});
-
-document.querySelectorAll("details[name]").forEach(($details) => {
-  $details.addEventListener("toggle", (event) => {
-    const name = $details.getAttribute("name");
-    if (event.newState === "open") {
-      document
-        .querySelectorAll(`details[name=${name}][open]`)
-        .forEach(($openDetails) => {
-          if (!($openDetails === $details)) {
-            $openDetails.removeAttribute("open");
-          }
-        });
-    }
-  });
 });
 
 const ga4Id = document.documentElement.getAttribute("data-ga4id");
