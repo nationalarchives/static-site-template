@@ -37,6 +37,7 @@ module.exports = async function (eleventyConfig) {
       tr: ["tna-table__row"],
       th: ["tna-table__header"],
       td: ["tna-table__cell"],
+      blockquote: ["tna-blockquote"],
     }),
   );
 
