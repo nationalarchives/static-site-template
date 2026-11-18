@@ -1,11 +1,11 @@
-name: Check linting and formatting
+name: Build, tests, linting, and formatting
 
 on:
   push:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
     permissions:
       contents: read
