@@ -1,5 +1,5 @@
 import Cookies from "@nationalarchives/cookies";
-import { initAll } from "@nationalarchives/frontend/nationalarchives/all.js";
+import { initAll } from "@nationalarchives/frontend/nationalarchives/all.mjs";
 import { GA4 } from "@nationalarchives/frontend/nationalarchives/analytics.mjs";
 
 initAll();
